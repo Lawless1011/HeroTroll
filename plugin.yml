@@ -1,0 +1,19 @@
+name: HeroTroll
+version: 1.0.0
+api: [1.10.0]
+main: HeroTroll\Main
+
+permissions:
+  herotroll:
+    default: false
+    description: Allows the player to use all of the HeroTroll functions
+    children:
+      herotroll.ht:
+          default: op
+          description: Allows the player to run the HeroTroll command
+        herotroll.hm:
+          default: op
+          description: Allows the player to run the HeroMessage command
+        herotroll.hw:
+          default: op
+          description: Allows the player to run the HeroWarn command
