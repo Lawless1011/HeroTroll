@@ -1,0 +1,7 @@
+## Default config file for HeroTroll
+
+# Will the console know who sends a message with the username Herobrine?
+ConsoleKnow: true
+
+# When a player runs the HeroWarn command, what message will be sent?
+HeroWarn: Herobrine is after you!
