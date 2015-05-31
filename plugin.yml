@@ -2,6 +2,22 @@ name: HeroTroll
 version: 1.0.0
 api: [1.10.0]
 main: HeroTroll\Main
+commands:
+  ht:
+    usage: /ht
+    description: Shows the player a list of HeroTroll commands
+    permission: herotroll.ht
+  hm:
+    usage: /hm <message>
+    description: Sends a message to chat with the username as Herobrine
+    permission: herotroll.hm
+  hw:
+    usage: /hw <player>
+    description: Sends the desired player a spooky message
+  hu:
+    usage: /hu
+    description: Changes your username to Herobrine
+    permission: herotroll.hu
 
 permissions:
   herotroll:
@@ -9,11 +25,14 @@ permissions:
     description: Allows the player to use all of the HeroTroll functions
     children:
       herotroll.ht:
-          default: op
-          description: Allows the player to run the HeroTroll command
-        herotroll.hm:
-          default: op
-          description: Allows the player to run the HeroMessage command
-        herotroll.hw:
-          default: op
-          description: Allows the player to run the HeroWarn command
+        default: op
+        description: Allows the player to run the HeroTroll command
+      herotroll.hm:
+        default: op
+        description: Allows the player to run the HeroMessage command
+      herotroll.hw:
+        default: op
+        description: Allows the player to run the HeroWarn command
+      herotroll.hu:
+        default: op
+        description: Allows the player to run the HeroUsername command
