@@ -40,6 +40,9 @@ class Main extends PluginBase{
 						$sender->sendMessage("Showing page 1 of 1:");
 						$sender->sendMessage("/hm: Sends a message to chat with the username as herobrine");
 						$sender->sendMessage("/hw: Sends the desired player a spooky message");
+						$sender->sendMessage("/hu: Changes your nametag to Herobrine");
+						$sender->sendMessage("huon: Changes a player's nametag to Herobrine");
+						$sender->sendMessage("huoff: Changes a player's nagetag back to normal");
 					}elseif($args[0] == "2"){
 						$sender->sendMessage("More commands coming soon!");
 					}
@@ -60,8 +63,10 @@ class Main extends PluginBase{
 				$this->getServer()->broadcastMessage("<Herobrine> " .implode(" ", $args));
 				$know = $this->getConfig()->get("ConsoleKnow");
 				if($know == "true"){
-					$player = $sender->getDisplayName();
-					$this->getLogger()->info(TextFormat::YELLOW .$player.  " used the HeroMessage command");
+					if($sender instanceof Player){
+						$player = $sender->getDisplayName();
+						$this->getLogger()->info(TextFormat::YELLOW .$player.  " used the HeroMessage command");
+					}
 				}
 				return true;
 			}
@@ -74,7 +79,7 @@ class Main extends PluginBase{
 			if(isset($args[0])){
 				$player = $sender->getServer()->getPlayer($args[0]);
 				if($player !== null and $player->isOnline()){
-					$player->sendMessage($this->getConfig()->get("HeroWarn"));
+					$player->sendMessage("Warning: " .$this->getConfig()->get("HeroWarn"));
 					$sender->sendMessage("Your message has been sent!");
 					return true;
 				}else{
@@ -87,34 +92,71 @@ class Main extends PluginBase{
 		}
 		case "hu":
 		if($sender->hasPermission("herotroll") || $sender->hasPermission("herotroll.hu")){
-			if(isset($args[0])){
-				if($args[0] == "on"){
-					if($sender->getNameTag() == $sender->getDisplayName()){
-						$this->heroName($sender);
-						return true;
-					}else{
-						$player->sendMessage("Your username is already Herobrine!");
-						return true;
-					}
-				}elseif($args[0] == "off"){
-						if($sender->getNameTag() == $sender->getDisplayName()){
+			if($sender instanceof Player){
+				if(isset($args[0])){
+					if($args[0] == "on"){
+							$this->heroName($sender);
+							return true;
+					}elseif($args[0] == "off"){
 							$this->offHeroName($sender);
 							$sender->sendMessage("Your username has been restored");
 							return true;
-						}else{
-							$sender->sendMessage("Your username is already herobrine!");
-							return true;
 						}
+					}else{
+						return false;
 					}
 				}else{
-					return false;
+					$sender->sendMessage(TextFormat::YELLOW . "Please run that command in-game");
+					return true;
 				}
 			}else{
-				$sender->sendMessage("You don't have permission to do that!");
+				$player->sendMessage("You don't have permission to do that!");
 				return true;
 			}
+		case "huoff":
+		if($sender->hasPermission("herotroll") || $sender->hasPermission("herotroll.huoff")){
+			if(!(isset($args[0]))){
+				return false;
+			}else{
+				$player = $sender->getServer()->getPlayer($args[0]);
+				if($player !== null and $player->isOnline()){
+					if($player->getNameTag() == "Herobrine"){
+						$this->offHeroName($player);
+						$sender->sendMessage($player->getDisplayName() . "'s name has been restored");
+						return true;
+					}else{
+						$sender->sendMessage("That player's name isn't Herobrine!");
+						return true;
+					}
+				}else{
+					$sender->sendMessage("Player " .$args[0]. " not found");
+					return true;
+				}
+			}
+		}else{
+			$sender->sendMessage("You don't have permission to do that!");
+			return true;;
 		}
+		case "huon":
+		if($sender->hasPermission("herotroll") || $sender->hasPermission("herotroll.huon")){
+			if(!(isset($args[0]))){
+				return false;
+			}else{
+				$player = $sender->getServer()->getPlayer($args[0]);
+				if($player !== null and $player->isOnline()){
+					$this->heroName($player);
+					$sender->sendMessage($player->getDisplayName(). "'s name tag is now herobrine");
+					return true;
+				}else{
+					$sender->sendMessage("Player " .$args[0]. " not found");
+					return true;
+				}
+			}
+		}else{
+			$sender->sendMessage("You don't have permission to do that!");
+			return true;
+		}
+		// case here
 	}
 }
 }
-
