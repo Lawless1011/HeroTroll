@@ -15,9 +15,17 @@ commands:
     usage: /hw <player>
     description: Sends the desired player a spooky message
   hu:
-    usage: /hu
+    usage: /hu <on | off>
     description: Changes your username to Herobrine
     permission: herotroll.hu
+  huoff:
+    usage: /huoff <player>
+    description: Removes the desired player's Herobrine username
+    permission: herotroll.huoff
+  huon:
+    usage: /huon <player>
+    description: Sets the desired player's nage tag as Herobrine
+    permission: herotroll.huon
 
 permissions:
   herotroll:
@@ -36,3 +44,9 @@ permissions:
       herotroll.hu:
         default: op
         description: Allows the player to run the HeroUsername command
+      herotroll.huoff:
+        default: op
+        description: Allows the player to run the HeroUsernameOff command
+      herotroll.huon:
+        default: op
+        description: Allows the player to run the HeroUsernameOn command
