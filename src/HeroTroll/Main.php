@@ -58,7 +58,7 @@ class Main extends PluginBase{
 				return true;
 			}
 		
-			// HeroWarn
+			// HeroMessage
 			case "hm":
 			if($sender->hasPermission("herotroll") || $sender->hasPermission("herotroll.hm")){
 				if(!(isset($args[0]))){
